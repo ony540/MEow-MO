@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>메모장 만들기 - 강사님 코드</title>
+        <style>
+            main {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            input {
+                display: block;
+                width: 300px;
+                height: 30px;
+                margin-bottom: 10px;
+            }
+
+            textarea {
+                display: block;
+                width: 300px;
+                height: 300px;
+                margin-bottom: 10px;
+            }
+
+            button {
+                display: block;
+                width: 306px;
+                height: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <section>
+                <input type="text" name="" id="title" />
+                <textarea name="" id="content" cols="30" rows="10"></textarea>
+                <button onclick="saveNote()">메모</button>
+            </section>
+            <section id="display"></section>
+        </main>
+        <script>
+            let allMemo = JSON.parse(localStorage.getItem("allMemo")); //로컬의 allmemo라는 키를 가진 값 호출
+            allMemo = allMemo ?? []; //올메모 널이라면 빈배열 반환
+
+            render();
+
+            //메모저장 함수
+            function saveNote() {
+                //제목, 내용 인풋 가져오기
+                const title = document.getElementById("title").value; 
+                const content = document.getElementById("content").value;
+
+                //올메모에 객체 형태의 한메모를 요소 하나로 푸시하기 (len은 인덱스 번호)
+                allMemo.push({ title, content, len: allMemo.length });
+
+                //올메모를 문자열로 변환해서 로컬에 넣기
+                localStorage.setItem("allMemo", JSON.stringify(allMemo));
+                render();
+            }
+
+            //렌더링 함수 (목록에 로컬에 있는 것들 넣기 )
+            function render() {
+                const display = document.getElementById("display"); //보여질 곳
+                display.innerHTML = ""; //초기화
+
+                // // 최신 게시물이 위로 올라오도록
+                for (let i = allMemo.length; i > 0 ; i--) {
+                    // 아래와 유사 코드
+                    const saveTitle = document.createElement("h2");
+                    const saveContent = document.createElement("p");
+                    const saveId = document.createElement("p");
+                    const deleteMemoBtn = document.createElement("button");
+
+                    //각각 제목,내용, 번호 넣기
+                    saveTitle.textContent = allMemo[i-1].title;
+                    saveContent.textContent = allMemo[i-1].content;
+                    saveId.textContent = allMemo[i-1].len + 1;
+
+                    //삭제버튼 구성 index를 id로 줘서 삭제할 수 있도록
+                    deleteMemoBtn.textContent = "삭제";
+                    deleteMemoBtn.setAttribute("id", allMemo[i-1].len);
+                    deleteMemoBtn.setAttribute("onclick", "remove()");
+
+                    //디스플레이 안에 넣기 순서대로 들어감
+                    display.appendChild(saveId);
+                    display.appendChild(saveTitle);
+                    display.appendChild(saveContent);
+                    display.appendChild(deleteMemoBtn);
+                    
+                }
+
+                // for (const item of allMemo) { //배열이라서 iterable 반복가능한 것
+
+                //     const saveTitle = document.createElement("h2");
+                //     const saveContent = document.createElement("p");
+                //     const saveId = document.createElement("p");
+                //     const deleteMemoBtn = document.createElement("button");
+
+                //     //각각 제목,내용, 번호 넣기
+                //     saveTitle.textContent = item.title;
+                //     saveContent.textContent = item.content;
+                //     saveId.textContent = item.len + 1;
+
+                //     //삭제버튼 구성 index를 id로 줘서 삭제할 수 있도록
+                //     deleteMemoBtn.textContent = "삭제";
+                //     deleteMemoBtn.setAttribute("id", item.len);
+                //     deleteMemoBtn.setAttribute("onclick", "remove()");
+
+                //     //디스플레이 안에 넣기 순서대로 들어감
+                //     display.appendChild(saveId);
+                //     display.appendChild(saveTitle);
+                //     display.appendChild(saveContent);
+                //     display.appendChild(deleteMemoBtn);
+                // }
+            }
+
+            //삭제하는 함수
+            function remove() {
+                console.log(event.srcElement.id); //id는 인덱스 번호
+                // console.log(allMemo);
+
+                //.find() - 맞는 첫번째 값만 리턴 (삭제할 아이템을 올메모 배열에서 찾기)
+                const idx = allMemo.find(
+                    (item) => item.len == event.srcElement.id
+                );
+
+                //찾았으면 
+                if (idx) {
+                    //해당 인덱스부터 1개 삭제 (걍 본인을 삭제)
+                    allMemo.splice(
+                        //아이템의len이랑 삭제할 요소의 len이 같은거의 인덱스를 찾기  - 굳이.? 걍 그자체가 인덱스랑 같은데..
+                        // allMemo.findIndex((item) => item.len == idx.len),
+                        idx.len,
+                        1
+                    );
+                }
+
+                //올메모 배열을 문자열로 만들어서 로컬에 넣기
+                localStorage.setItem("allMemo", JSON.stringify(allMemo));
+                //바꼈으니 렌더링
+                render();
+            }
+        </script>
+    </body>
+</html>

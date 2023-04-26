@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
 /* reset */
 * {
     margin: 0;
@@ -5,10 +19,15 @@
     border: 0;
     font-size: 100%;
     font: inherit;
+    font-family: 'Pretendard', sans-serif;
     vertical-align: baseline;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    background-color: unset;
+    font-size: 10px;
+    letter-spacing: 0.1rem;
 }
+
 
 .a11y-hidden {
     clip: rect(1px, 1px, 1px, 1px);
@@ -36,4 +55,325 @@ img {
     vertical-align: top;
 }
 
-/* layout */
+button {
+    cursor: pointer;
+}
+
+
+/*버튼 색채우기 class */
+.fill-def {
+    background: #609FFF;
+}
+
+.fill-thk {
+    background: #FF9E44;
+}
+
+.fill-imp {
+    background: #FFE500;
+}
+
+
+/* ---------- */
+
+/* header */
+
+header {
+    width: 1224px;
+    max-width: calc(100% - 60px);
+    margin: 10px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* 구분선1 */
+header::after {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    content: '';
+    width: 100%;
+    height: 7px;
+    background: url(./images/line-v.png) no-repeat;
+}
+
+.logo {
+    width: 82px;
+    padding-bottom: 23px;
+}
+
+.filter {
+    display: flex;
+    gap: 5px;
+}
+
+.filter [class^="tag"] button {
+    width: 48px;
+    height: 48px;
+    background-size: 48px 48px;
+}
+
+.tag-def-disable button {
+    background-image: url(./images/def.png);
+}
+
+.tag-thk-disable button {
+    background-image: url(./images/think.png);
+}
+
+.tag-imp-disable button {
+    background-image: url(./images/imp.png);
+}
+
+.tag-def button {
+    background-image: url(./images/def-c.png);
+}
+
+.tag-thk button {
+    background-image: url(./images/think-c.png);
+}
+
+.tag-imp button {
+    background-image: url(./images/imp-c.png);
+}
+
+
+/* ------------- */
+/* main - layout */
+main {
+    width: 1224px;
+    max-width: calc(100% - 60px);
+    max-width: calc(100% - 60px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 20px 0;
+    gap: 2vw;
+}
+
+#makeMemo {
+    width: 450px;
+    flex-shrink: 0;
+}
+
+/* 구분선2 */
+.line {
+
+    flex-basis: 7px;
+    flex-shrink: 0;
+    background: url(./images/line-h.png) ;
+}
+
+/* 여기 고쳐라!!! */
+/* 바둑판식 */
+#display{
+    display: grid;
+    gap: 32px 26px;
+}
+
+/* 1열 */
+@media (max-width:895px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 30px;
+    }
+
+    #makeMemo {
+        width: 100%;
+    }
+
+    .line{
+        display: none;
+    }
+
+    #display{
+        flex-direction: column;
+        align-items: center;
+        background: url(./images/line-v.png) no-repeat;
+        width: 100%;
+        margin-top: 50px;
+        padding-top: 60px;
+        gap: 50px;
+    }
+
+}
+
+
+/* 메모 만들기 */
+
+
+.make-box {
+    border: 3px solid black;
+    border-radius: 30px;
+    padding: 22px 30px;
+    position: relative;
+
+}
+
+/* 말풍선 꼬리 */
+.make-box::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 48px;
+    bottom: -40px;
+    right: 141px;
+    background: url(./images/tail.svg) no-repeat;
+}
+
+/* 태그 고르기 */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+}
+
+.menu .tags li {
+    display: inline-block;
+}
+
+.menu .tags li button {
+    width: 40px;
+    height: 40px;
+    background-size: 40px 40px;
+}
+
+.menu .explain {
+    font-size: 1.6rem;
+    padding: 0 8px;
+    height: 32px;
+    border: 2px solid #000000;
+    border-radius: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    letter-spacing: normal;
+}
+
+/* 인풋 */
+
+.make-box input {
+    width: 100%;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    margin: 15px 0 21px;
+    text-indent: 6px;
+}
+
+.make-box textarea {
+    font-size: 1.8rem;
+    line-height: 160%;
+    width: 100%;
+    margin-bottom: 20px;
+    resize: none;
+    text-indent: 6px;
+}
+
+/* 매모 등록 버튼 */
+.btn-make {
+    width: 100%;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: 13px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* 고양이 이미지 */
+.cat-box {
+    width: 221px;
+    height: 246px;
+    background: url(./images/cat-def.png) no-repeat;
+    margin-top: 30px;
+    margin-left: auto;
+}
+
+/* 메모목록 */
+
+.bubble {
+    flex-basis: 249px;
+    background-size: 100% 100%;
+    max-width: 350px;
+    position: relative;
+}
+
+.small{
+    height: 264px;
+}
+.big{
+    height: 351px;
+}
+
+/* 메모기본 */
+.bubble-def {
+    height: 319px;
+    padding: 49px 38px 20px;
+    border-radius: 79px;
+    margin-bottom: 32px;
+    border: 3px solid #000000;
+}
+.bubble-def.small{
+    height: 232px;
+}
+
+/* 말풍선 꼬리 */
+.bubble-def::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 48px;
+    bottom: -38px;
+    right: 60px;
+    background: url(./images/tail.svg) no-repeat;
+    transform: scale(0.9);
+}
+
+/* 말풍선 생각, 중요 ------- */
+
+.bubble-thk.small {
+    background-image: url(./images/bubble-think.png);
+    padding: 67px 44px 52px 55px;
+}
+.bubble-thk.big {
+    background-image: url(./images/bubble-think-long.png);
+    padding: 72px 50px 58px;
+}
+.bubble-imp.small {
+    background-image: url(./images/bubble-imp.png);
+    padding: 67px 63px 52px 55px;
+}
+.bubble-imp.big {
+    background-image: url(./images/bubble-imp-long.png);
+    padding: 72px 50px 57px;
+}
+
+
+
+.bubble h2{
+    font-size: 1.8rem;
+    width: 249px;
+}
+.bubble p {
+    font-size: 1.4rem;
+    width: 249px;
+    margin-top: 17px;
+}
+
+.bubble .x {
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    background-image: url(./images/x-c.png);
+    transition: all 0.1s;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+

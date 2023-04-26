@@ -1,34 +1,55 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>먀모장 | ME(ow)MO</title>
+    <title>😸먀모장 | ME(ow)MO</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <header>
-        <h1> <img src="./images/logo.png" alt="logo"> </h1>
+        <h1 class="logo"> <img src="./images/logo.png" alt="logo"> </h1>
         <ul class="filter">
-            <li><button type="button"></button></li>
-            <li><button type="button"></button></li>
-            <li><button type="button"></button></li>
+            <li class="tag-def"><button type="button">
+            </button></li>
+            <li class="tag-thk"><button type="button">
+                </button></li>
+            <li class="tag-imp"><button type="button">
+            </button></li>
         </ul>
     </header>
     <main>
-        <!-- 메모 목록 -->
-        <section id="display">
-            <h2 class="a11y-hidden">메모 목록</h2>
-
-        </section>
-
         <!-- 메모 만들기 -->
         <section id="makeMemo">
             <h2 class="a11y-hidden">메모 만들기</h2>
-            
+            <div class="make-box">
+                <div class="menu">
+                    <ul class="tags">
+                        <li class="tag-def-disable tag-def"><button type="button">
+                        </button></li>
+                        <li class="tag-thk-disable"><button type="button">
+                            </button></li>
+                        <li class="tag-imp-disable"><button type="button">
+                        </button></li>
+                    </ul>
+                    <p class="explain">태그를 선택하세요</p>
+                </div>
+                <input type="text" name="title" id="title" maxlenth="15"  placeholder="제목을 입력하세요"/>
+                <textarea name="content" id="content" cols="31" rows="9" maxlenth="190" placeholder="메모를 남기세요"></textarea>
+                <button class="btn-make fill-def" type="submit" onclick="saveNote()">메모하기</button>
+            </div>
+            <div class="cat-box"></div>
+        </section>
+        <div class="line"></div>
+        <!-- 메모 목록 -->
+        <section id="display">
+            <h2 class="a11y-hidden">메모 목록</h2>
         </section>
     </main>
     <script src="./memo.js"></script>
 </body>
+
 </html>
