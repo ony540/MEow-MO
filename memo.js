@@ -4,7 +4,7 @@ allMemo = allMemo ?? []; //올메모 널이라면 빈배열 반환
 // 태그목록, 선택된 태그
 const tags = ['def', 'thk', 'imp'];
 const taglist = document.querySelector('.tags');
-let selected = taglist.querySelector('.tag-def'); 
+let selected = taglist.querySelector('.tag-def');
 
 //제목, 내용 인풋 / 만들기 버튼 가져오기
 const title = document.getElementById("title");
@@ -70,7 +70,7 @@ function saveNote() {
 title.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
-       content.focus();
+        content.focus();
     }
 });
 
@@ -115,9 +115,6 @@ function render() {
             saveContainer.closest('article').classList.add('small');
         }
 
-        // line 높이 지정
-        const line = document.querySelector('.line');
-        line.style.height = display.clientHeight + 'px';
     }
 }
 
@@ -145,5 +142,10 @@ function remove() {
     render();
 }
 
+document.addEventListener('resize', () => {
+        // line 높이 지정
+        const line = document.querySelector('.line');
+        line.style.height = display.clientHeight + 'px';
+    }
 
-//필터링하기
+)

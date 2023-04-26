@@ -161,16 +161,24 @@ main {
     background: url(./images/line-h.png) ;
 }
 
-/* 여기 고쳐라!!! */
-/* 바둑판식 */
+/* 3열 */
 #display{
     width: calc(100% - 457px);
     display: grid;
-    gap: 32px 20px;
+    gap: 40px 20px;
     grid-template-columns: minmax(342px,1fr)  minmax(342px,1fr);
     grid-template-rows: auto;
     justify-content: space-between;
     align-content: start;
+}
+
+/* 2열 */
+@media (max-width:1260px) {
+
+    #display{
+        grid-template-columns:minmax(342px,0.55fr);
+        justify-content: center;
+    }
 }
 
 /* 1열 */
@@ -182,7 +190,8 @@ main {
     }
 
     #makeMemo {
-        width: 100%;
+       width: calc(100% - 60px) ;
+        min-width: 100%;
     }
 
     .line{
@@ -190,13 +199,12 @@ main {
     }
 
     #display{
-        flex-direction: column;
-        align-items: center;
         background: url(./images/line-v.png) no-repeat;
         width: 100%;
-        margin-top: 50px;
-        padding-top: 60px;
         gap: 50px;
+        margin-top: 60px;
+        padding-top: 60px;
+        grid-template-columns: minmax(342px, 0.45fr) ;
     }
 
 }
