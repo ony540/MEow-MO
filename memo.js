@@ -1,8 +1,14 @@
 let allMemo = JSON.parse(localStorage.getItem("allMemo")); //로컬의 allmemo라는 키를 가진 값 호출
 allMemo = allMemo ?? []; //올메모 널이라면 빈배열 반환
-const tags = ['def', 'thk', 'imp']
+
+// 태그목록, 선택된 태그
+const tags = ['def', 'thk', 'imp'];
 const taglist = document.querySelector('.tags');
-let selected = taglist.querySelector('.tag-def');
+let selected = taglist.querySelector('.tag-def'); 
+
+//제목, 내용 인풋 / 만들기 버튼 가져오기
+const title = document.getElementById("title");
+const content = document.getElementById("content");
 
 render();
 
@@ -13,51 +19,66 @@ function setTag() {
 
     taglist.addEventListener('click', function (e) {
         taglist.querySelectorAll("li[class^='tag']").forEach((item) => item.classList.remove('tag-def', 'tag-thk', 'tag-imp')); //태그 초기화
-        makeBtn.classList.remove( `fill-def`,'fill-thk','fill-imp');
+        makeBtn.classList.remove(`fill-def`, 'fill-thk', 'fill-imp');
 
         selected = e.target.closest('li');
         for (let tag of tags) {
             if (selected && selected.classList.contains(`tag-${tag}-disable`)) {
                 selected.classList.add(`tag-${tag}`)
-                makeBtn.classList.add( `fill-${tag}`);
+                makeBtn.classList.add(`fill-${tag}`);
                 catBox.style.backgroundImage = `url(./images/cat-${tag}.png)`
+
+                if (tag === 'def') {
+                    makeBtn.textContent = '메모하기';
+                } else if (tag === 'thk') {
+                    makeBtn.textContent = '생각 메모하기';
+
+                } else if (tag === 'imp') {
+                    makeBtn.textContent = '중요 메모하기';
+                }
             }
         }
-
     })
-
 }
 setTag();
 
 
 //메모 저장하기
 function saveNote() {
-    //제목, 내용 인풋 가져오기
-    const title = document.getElementById("title").value;
-    const content = document.getElementById("content").value;
-
     const tagName = selected.getAttribute('class').slice(-3)
 
     //올메모에 객체 형태의 한메모를 요소 하나로 푸시하기 (len은 인덱스 번호)
     if (title && content) {
         allMemo.push({
-            title,
-            content,
+            title: title.value,
+            content: content.value,
             len: allMemo.length,
             tag: tagName
         });
-    } else {}
+        title.value = null;
+        content.value = null;
+    } else {
+        alert('제목과 내용을 입력해주세요');
+    }
 
     //올메모를 문자열로 변환해서 로컬에 넣기
     localStorage.setItem("allMemo", JSON.stringify(allMemo));
     render();
 }
 
+// 제목에서 엔터누르면 내용으로 넘어가기
+title.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+       content.focus();
+    }
+});
+
+
 //렌더하기 (목록에 로컬에 있는 것들 넣기 )
 function render() {
     const display = document.getElementById("display");
     display.innerHTML = ""; //초기화
-
 
     //최신 게시물이 위로 올라오도록
     for (let i = allMemo.length; i > 0; i--) {
@@ -65,6 +86,7 @@ function render() {
         const saveContainer = document.createElement("article");
         const saveTitle = document.createElement("h2");
         const saveContent = document.createElement("p");
+        const saveTxt = document.createElement('div');
         const deleteMemoBtn = document.createElement("button");
 
         //각각 제목,내용 넣기
@@ -82,20 +104,20 @@ function render() {
         deleteMemoBtn.setAttribute("onclick", "remove()");
 
         //디스플레이 안에 넣기 순서대로 들어감
-        saveContainer.append(saveTitle, saveContent, deleteMemoBtn);
+        saveTxt.append(saveTitle, saveContent);
+        saveContainer.append(saveTxt, deleteMemoBtn);
         display.appendChild(saveContainer);
 
         // 높이에 따른 클래스
-        if(saveContent.clientHeight >= 100){
+        if (saveContent.clientHeight >= 100) {
             saveContainer.closest('article').classList.add('big');
-        } else{
+        } else {
             saveContainer.closest('article').classList.add('small');
         }
 
         // line 높이 지정
         const line = document.querySelector('.line');
         line.style.height = display.clientHeight + 'px';
-
     }
 }
 
@@ -122,5 +144,6 @@ function remove() {
     //바꼈으니 렌더링
     render();
 }
+
 
 //필터링하기

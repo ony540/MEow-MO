@@ -55,11 +55,6 @@ img {
     vertical-align: top;
 }
 
-button {
-    cursor: pointer;
-}
-
-
 /*버튼 색채우기 class */
 .fill-def {
     background: #609FFF;
@@ -141,15 +136,15 @@ header::after {
 
 
 /* ------------- */
-/* main - layout */
+/* layout */
 main {
     width: 1224px;
-    max-width: calc(100% - 60px);
     max-width: calc(100% - 60px);
     margin: 0 auto;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    justify-content: right;
     padding: 20px 0;
     gap: 2vw;
 }
@@ -161,7 +156,6 @@ main {
 
 /* 구분선2 */
 .line {
-
     flex-basis: 7px;
     flex-shrink: 0;
     background: url(./images/line-h.png) ;
@@ -170,12 +164,17 @@ main {
 /* 여기 고쳐라!!! */
 /* 바둑판식 */
 #display{
+    width: calc(100% - 457px);
     display: grid;
-    gap: 32px 26px;
+    gap: 32px 20px;
+    grid-template-columns: minmax(342px,1fr)  minmax(342px,1fr);
+    grid-template-rows: auto;
+    justify-content: space-between;
+    align-content: start;
 }
 
 /* 1열 */
-@media (max-width:895px) {
+@media (max-width:925px) {
     main {
         flex-direction: column;
         align-items: center;
@@ -242,6 +241,7 @@ main {
     width: 40px;
     height: 40px;
     background-size: 40px 40px;
+    cursor: pointer;
 }
 
 .menu .explain {
@@ -284,6 +284,7 @@ main {
     padding: 13px;
     font-size: 20px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 /* 고양이 이미지 */
@@ -298,9 +299,8 @@ main {
 /* 메모목록 */
 
 .bubble {
-    flex-basis: 249px;
     background-size: 100% 100%;
-    max-width: 350px;
+    /* width: 350px; */
     position: relative;
 }
 
@@ -314,7 +314,6 @@ main {
 /* 메모기본 */
 .bubble-def {
     height: 319px;
-    padding: 49px 38px 20px;
     border-radius: 79px;
     margin-bottom: 32px;
     border: 3px solid #000000;
@@ -339,31 +338,33 @@ main {
 
 .bubble-thk.small {
     background-image: url(./images/bubble-think.png);
-    padding: 67px 44px 52px 55px;
 }
 .bubble-thk.big {
     background-image: url(./images/bubble-think-long.png);
-    padding: 72px 50px 58px;
 }
 .bubble-imp.small {
     background-image: url(./images/bubble-imp.png);
-    padding: 67px 63px 52px 55px;
 }
 .bubble-imp.big {
     background-image: url(./images/bubble-imp-long.png);
-    padding: 72px 50px 57px;
 }
 
+.bubble > div{
+    width: 249px;
+    margin: 72px auto 0;
+}
 
+.bubble-def > div {
+    margin-top: 32px;
+}
 
 .bubble h2{
     font-size: 1.8rem;
-    width: 249px;
 }
 .bubble p {
     font-size: 1.4rem;
-    width: 249px;
     margin-top: 17px;
+    word-break: break-all;
 }
 
 .bubble .x {
