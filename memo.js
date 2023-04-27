@@ -48,7 +48,7 @@ function saveNote() {
     const tagName = selected.getAttribute('class').slice(-3)
 
     //올메모에 객체 형태의 한메모를 요소 하나로 푸시하기 (len은 인덱스 번호)
-    if (title && content) {
+    if (title.value && content.value) {
         allMemo.push({
             title: title.value,
             content: content.value,
@@ -142,8 +142,8 @@ function remove() {
     render();
 }
 
+// line 높이 지정
 document.addEventListener('resize', () => {
-        // line 높이 지정
         const line = document.querySelector('.line');
         line.style.height = display.clientHeight + 'px';
     }
